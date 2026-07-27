@@ -2,6 +2,24 @@
 
 Audit date: 2026-07-27, against `ea70bea`.
 
+> [!NOTE]
+> **This document is a point-in-time audit, not a live plan.** Everything below is
+> now tracked in issues — that's the backlog, and it's the source of truth for
+> status. Start at [#5][epic] for the renderer cluster, or filter by
+> [`priority:p0`][p0] / [`priority:p1`][p1].
+>
+> Keep this file as the reasoning record (how the conclusions were reached, with
+> reproductions), and don't update it as work lands — close the issues instead.
+>
+> Issue map: LICENSE #2 · npm publish #3 · `mermaid` peer dep #4 · renderer epic #5
+> (#6–#20) · supported subset #21 · README residue #22 · changelog #23 · CLI #24 ·
+> subpath exports #25 · community files #26 · Dependabot #27 · CodeQL #28 ·
+> coverage reporting #29 · dev-env scaffolding #30 · docs site #31 · biome config #32
+>
+> [epic]: https://github.com/rtkelly13/mermaid-toolkit/issues/5
+> [p0]: https://github.com/rtkelly13/mermaid-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3Apriority%3Ap0
+> [p1]: https://github.com/rtkelly13/mermaid-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3Apriority%3Ap1
+
 The build/CI/packaging layer of this repo is genuinely strong — better than most
 solo projects at this stage. `pnpm run ci` is a real gate (lint → typecheck →
 coverage-with-thresholds → dual-format build → `publint`/`attw` → size-limit →
