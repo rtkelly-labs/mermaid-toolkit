@@ -1,0 +1,58 @@
+name: "Mermaid syntax support"
+description: Ask for a diagram type, node shape, or arrow style the parser doesn't handle yet
+title: "[syntax] "
+labels: ["type:feature", "area:parser", "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The parser handles a documented subset of Mermaid. Use this template to ask
+        for more of it. Check the supported-subset table in the README first — and
+        note that syntax which is *silently dropped* today is a bug, not a feature
+        request, so use the renderer-bug template for those.
+
+  - type: textarea
+    id: syntax
+    attributes:
+      label: Syntax you want supported
+      render: text
+      placeholder: |
+        graph TD
+          subgraph auth [Authentication]
+            login --> verify
+          end
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Node shape
+        - Arrow / edge style
+        - Grouping (subgraph)
+        - Styling directive (classDef, style, class)
+        - New diagram type (sequence, class, ER, state)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: rendering
+    attributes:
+      label: How should it render in ASCII?
+      description: >
+        This is the hard part for text output — a rough sketch of the intended
+        result helps more than anything else in the issue.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: usecase
+    attributes:
+      label: What are you using it for?
+      description: Docs site, llms.txt generation, terminal output, CI logs, something else?
+    validations:
+      required: false

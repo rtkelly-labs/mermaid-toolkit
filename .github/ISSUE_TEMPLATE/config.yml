@@ -1,0 +1,14 @@
+# Force template use — a renderer bug without its input/output pair can't be
+# acted on, and this repo's whole test strategy is golden fixtures built from
+# those pairs.
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea
+    url: https://github.com/rtkelly13/mermaid-toolkit/discussions
+    about: For usage questions and open-ended ideas — please don't open an issue for these.
+  - name: Contributing guide
+    url: https://github.com/rtkelly13/mermaid-toolkit/blob/main/CONTRIBUTING.md
+    about: Setup, the toolchain, and how to run the same gate CI runs.
+  - name: Report a security vulnerability
+    url: https://github.com/rtkelly13/mermaid-toolkit/security/advisories/new
+    about: Please report vulnerabilities privately, not as a public issue.

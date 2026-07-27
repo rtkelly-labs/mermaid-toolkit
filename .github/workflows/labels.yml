@@ -1,0 +1,43 @@
+name: Labels
+
+# Keeps the repo's labels in sync with .github/labels.yml, which is the single
+# source of truth. Runs automatically when that file changes on main, and can be
+# triggered manually with a dry-run first (same pattern as release.yml).
+#
+# `skip-delete: false` means labels absent from labels.yml are removed — that is
+# the point of a declarative taxonomy. Use the dry run to check what would go.
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/labels.yml
+      - .github/workflows/labels.yml
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Report the changes without applying them'
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: labels-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync labels from .github/labels.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply label taxonomy
+        uses: crazy-max/ghaction-github-labeler@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          yaml-file: .github/labels.yml
+          skip-delete: false
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run }}

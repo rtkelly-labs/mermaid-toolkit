@@ -1,5 +1,36 @@
 # Contributing
 
+## Finding something to work on
+
+Issues are the backlog — there is no separate tracker or board file. Good entry
+points:
+
+- [`good first issue`][gfi] — small and well-scoped, with the fix location named
+  in the issue body.
+- [`help wanted`][hw] — anything the maintainer would happily hand over.
+- [`priority:p0`][p0] / [`priority:p1`][p1] — what actually matters right now.
+
+If you're picking up a `type:bug` in the renderer, the issue will already contain
+an input diagram plus actual and expected output. Turn that pair into a fixture
+under `tests/fixtures/` as part of the fix — that's the convention here, and it's
+why the bug template demands those fields.
+
+## Labels
+
+[`.github/labels.yml`](./.github/labels.yml) is the single source of truth for
+labels. Editing it on `main` triggers the `Labels` workflow, which syncs GitHub
+to match (including deleting labels no longer listed). To apply it immediately
+from your machine, run `./scripts/sync-labels.sh` — same idea as
+`setup-repo-governance.sh`.
+
+Every issue carries one `type:*`, one `priority:*`, and at least one `area:*`.
+Two modifiers matter more than the rest:
+
+| Label | Meaning |
+| --- | --- |
+| `silent-failure` | Produces wrong output without erroring. The worst bug class in this library — a diagram missing three nodes looks fine and gets committed. These get prioritised above cosmetic breakage. |
+| `breaking-change` | Changes public API or rendered output incompatibly. Needs a changelog entry and a minor/major bump. |
+
 ## Setup
 
 ```bash
@@ -59,3 +90,8 @@ secret; supports a dry-run). It publishes with npm provenance.
 [publint]: https://publint.dev
 [are-the-types-wrong]: https://github.com/arethetypeswrong/arethetypeswrong.github.io
 [size-limit]: https://github.com/ai/size-limit
+
+[gfi]: https://github.com/rtkelly13/mermaid-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+[hw]: https://github.com/rtkelly13/mermaid-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22
+[p0]: https://github.com/rtkelly13/mermaid-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3Apriority%3Ap0
+[p1]: https://github.com/rtkelly13/mermaid-toolkit/issues?q=is%3Aissue+is%3Aopen+label%3Apriority%3Ap1

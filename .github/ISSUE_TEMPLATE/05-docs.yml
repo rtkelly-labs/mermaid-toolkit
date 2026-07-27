@@ -1,0 +1,41 @@
+name: "Documentation"
+description: Something in the README or docs is wrong, missing, or misleading
+title: "[docs] "
+labels: ["type:docs", "area:docs", "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Docs that describe behaviour the code doesn't have are treated as bugs here,
+        not nitpicks — please do file them.
+
+  - type: input
+    id: where
+    attributes:
+      label: Where
+      description: File and section, or a link to the exact lines.
+      placeholder: "README.md → Supported Diagram Types"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of problem
+      options:
+        - Says something that isn't true of the code
+        - Missing information
+        - Out of date / stale
+        - Broken link
+        - Confusing or ambiguous
+        - Typo or formatting
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: Details
+      description: What it says now, and what it should say.
+    validations:
+      required: true

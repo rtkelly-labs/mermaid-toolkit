@@ -1,0 +1,39 @@
+name: "Feature request"
+description: A new capability that isn't about Mermaid syntax support
+title: "[feature] "
+labels: ["type:feature", "status:needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that you can't do today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: If you have an API shape in mind, sketch it.
+      render: typescript
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you tried, or other libraries that do this.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: This keeps the library dependency-free (or I've explained why a new dependency is worth it)
+          required: false
+        - label: I'd be willing to work on this
+          required: false

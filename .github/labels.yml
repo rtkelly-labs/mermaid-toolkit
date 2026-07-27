@@ -1,0 +1,136 @@
+# Declarative label taxonomy — the single source of truth for this repo's labels.
+#
+# Applied by .github/workflows/labels.yml (on push to main when this file
+# changes, or manually with a dry-run option), and by
+# ./scripts/sync-labels.sh for an immediate local apply.
+#
+# Convention: every label is `group:value`, except the two GitHub gives special
+# contributor-facing treatment (`good first issue`, `help wanted`) and the
+# standalone modifiers at the bottom.
+#
+# Groups:
+#   type:*      what kind of work this is       — exactly one per issue
+#   area:*      which part of the codebase      — one or more
+#   priority:*  how much it matters             — exactly one
+#   status:*    where it is in the pipeline      — zero or one
+
+# ---------------------------------------------------------------- type
+- name: "type:bug"
+  color: "d73a4a"
+  description: "Behaviour that is wrong, not just missing"
+
+- name: "type:feature"
+  color: "0e8a16"
+  description: "New capability or new syntax support"
+
+- name: "type:docs"
+  color: "0075ca"
+  description: "README, guides, API reference, examples"
+
+- name: "type:test"
+  color: "fbca04"
+  description: "Test coverage, fixtures, benchmarks"
+
+- name: "type:chore"
+  color: "ededed"
+  description: "Tooling, CI, dependencies, repo scaffolding"
+
+- name: "type:refactor"
+  color: "c5def5"
+  description: "Restructuring with no behaviour change"
+
+- name: "type:epic"
+  color: "5319e7"
+  description: "Umbrella issue tracking a cluster of related work"
+
+# ---------------------------------------------------------------- area
+- name: "area:parser"
+  color: "1d76db"
+  description: "src/parser.ts — Mermaid source to internal model"
+
+- name: "area:renderer"
+  color: "1d76db"
+  description: "src/renderers/, src/grid.ts — drawing to the character grid"
+
+- name: "area:layout"
+  color: "1d76db"
+  description: "Node placement and edge routing"
+
+- name: "area:theme-engine"
+  color: "1d76db"
+  description: "src/theme-engine.ts, presets, theme types"
+
+- name: "area:cli"
+  color: "1d76db"
+  description: "Command-line entrypoint"
+
+- name: "area:build-ci"
+  color: "1d76db"
+  description: "Workflows, quality gate, release automation"
+
+- name: "area:packaging"
+  color: "1d76db"
+  description: "package.json, exports map, published artifact"
+
+- name: "area:docs"
+  color: "1d76db"
+  description: "Documentation content and site"
+
+- name: "area:community"
+  color: "1d76db"
+  description: "Contributor-facing files and repo health"
+
+# ------------------------------------------------------------ priority
+- name: "priority:p0"
+  color: "b60205"
+  description: "Blocker — ship-stopping or legally broken"
+
+- name: "priority:p1"
+  color: "d93f0b"
+  description: "High — needed before promoting the project"
+
+- name: "priority:p2"
+  color: "fbca04"
+  description: "Medium — worth doing, not urgent"
+
+- name: "priority:p3"
+  color: "c2e0c6"
+  description: "Low — nice to have"
+
+# -------------------------------------------------------------- status
+- name: "status:needs-triage"
+  color: "e4e669"
+  description: "Not yet assessed or prioritised"
+
+- name: "status:needs-repro"
+  color: "e4e669"
+  description: "Waiting on a minimal reproducing diagram"
+
+- name: "status:blocked"
+  color: "000000"
+  description: "Cannot proceed until something else lands"
+
+- name: "status:wontfix"
+  color: "ffffff"
+  description: "Deliberately out of scope"
+
+# ------------------------------------------------------------ modifiers
+- name: "silent-failure"
+  color: "b60205"
+  description: "Produces wrong output with no error — highest-risk bug class"
+
+- name: "breaking-change"
+  color: "d93f0b"
+  description: "Changes public API or output in a non-backwards-compatible way"
+
+- name: "good first issue"
+  color: "7057ff"
+  description: "Small, well-scoped, good entry point for a new contributor"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Maintainer would welcome someone picking this up"
+
+- name: "dependencies"
+  color: "0366d6"
+  description: "Dependency and action version updates"

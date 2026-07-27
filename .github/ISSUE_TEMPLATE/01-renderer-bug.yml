@@ -1,0 +1,89 @@
+name: "ASCII renderer bug"
+description: A diagram renders wrongly, renders incompletely, or drops nodes/edges
+title: "[renderer] "
+labels: ["type:bug", "area:renderer", "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. The renderer supports a **subset** of Mermaid — before
+        filing, please check the supported-subset table in the README to see whether
+        the syntax you used is expected to work. If it's listed as unsupported, a
+        feature request is the better fit.
+
+        The three fields below (input, actual, expected) are what make a renderer bug
+        actionable — they become a golden fixture in `tests/fixtures/` when it's fixed.
+
+  - type: textarea
+    id: input
+    attributes:
+      label: Input diagram
+      description: The **smallest** Mermaid source that reproduces it.
+      render: text
+      placeholder: |
+        graph LR
+          A[Start] --> B[Left]
+          A --> C[Right]
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual output
+      description: Paste exactly what `mermaidToAscii` returned, unedited.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected output
+      description: >
+        Sketch it by hand if you need to — approximate is fine, as long as the
+        difference you care about is clear.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: Options passed
+      description: The `AsciiOptions` object, if you passed one.
+      render: typescript
+      placeholder: '{ asciiOnly: true, paddingX: 10 }'
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Failure mode
+      description: >
+        "Silent" means no error was thrown and the output looked plausible — that
+        class of bug is the most dangerous, because wrong diagrams get committed.
+      options:
+        - Silent — wrong or incomplete output, no error
+        - Visible — threw an error or returned an error block
+        - Cosmetic — correct content, misaligned or ugly
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Package version, or the commit SHA if installed from Git.
+      placeholder: "0.1.0 / ea70bea"
+    validations:
+      required: true
+
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      placeholder: "22.11.0"
+    validations:
+      required: false

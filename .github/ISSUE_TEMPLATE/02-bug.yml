@@ -1,0 +1,57 @@
+name: "Bug (theme engine, packaging, types)"
+description: Something other than ASCII rendering is broken
+title: "[bug] "
+labels: ["type:bug", "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For ASCII rendering problems please use the **ASCII renderer bug** template
+        instead — it collects the diagram input/output pair we need.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Theme engine / presets
+        - TypeScript types
+        - Packaging (imports, exports map, ESM/CJS)
+        - Build or CI
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: A minimal code snippet, or a link to a repo that reproduces it.
+      render: typescript
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "0.1.0 / ea70bea"
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Node version, package manager, bundler, TS version — whatever is relevant.
+      placeholder: "Node 22.11.0, pnpm 10, Vite 6, TS 5.7"
+    validations:
+      required: false
