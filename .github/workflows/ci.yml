@@ -47,7 +47,7 @@ jobs:
         run: pnpm test:coverage
 
       - name: Build (ESM + CJS + types)
-        run: pnpm build:check
+        run: pnpm build
 
       - name: Validate package exports (publint + are-the-types-wrong)
         run: pnpm check:exports
@@ -87,7 +87,7 @@ jobs:
       # (ESM import + CJS require) against the built dist, not the source.
       - name: Pack tarball
         run: |
-          pnpm build:check
+          pnpm build
           echo "TARBALL=$(pnpm pack | tail -1)" >> "$GITHUB_ENV"
 
       - name: Install tarball into a clean project

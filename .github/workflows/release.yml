@@ -1,11 +1,15 @@
 name: Release
 
 # Manual, human-gated publish to npm. Trigger from the Actions tab
-# ("Run workflow"). Requires an `NPM_TOKEN` repo secret (an npm automation
-# token with publish rights to the @rtkelly-labs scope).
+# ("Run workflow").
 #
-# `id-token: write` + publishConfig.provenance enable npm provenance, so the
-# published package is cryptographically linked to this workflow run.
+# Publishes via npm Trusted Publishing (OIDC), so there is no NPM_TOKEN
+# secret: npm trusts this exact workflow file, configured on the package's
+# npmjs.com settings page, and attaches provenance itself. npm >= 11.5 is
+# needed for the token exchange, and Node 22 bundles an older one.
+#
+# The version is package.json's, unchanged. A prerelease (`0.1.0-alpha.0`)
+# belongs on `next`, so `latest` only ever names a version meant for everyone.
 on:
   workflow_dispatch:
     inputs:
@@ -13,6 +17,13 @@ on:
         description: 'Pack and validate only — do not publish'
         type: boolean
         default: true
+      dist-tag:
+        description: 'npm dist-tag to publish under'
+        type: choice
+        options:
+          - next
+          - latest
+        default: next
 
 permissions:
   contents: read
@@ -35,6 +46,20 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      # A prerelease on `latest` becomes what a bare install resolves to.
+      - name: Keep prereleases off latest
+        env:
+          DIST_TAG: ${{ inputs.dist-tag }}
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "${DIST_TAG}" = latest ] && [[ "${version}" == *-* ]]; then
+            echo "::error::${version} is a prerelease; publish it under 'next', not 'latest'."
+            exit 1
+          fi
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -43,12 +68,8 @@ jobs:
 
       - name: Publish (dry run)
         if: ${{ inputs.dry-run }}
-        run: pnpm publish --no-git-checks --dry-run
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag "${{ inputs.dist-tag }}" --dry-run
 
       - name: Publish
         if: ${{ !inputs.dry-run }}
-        run: pnpm publish --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --tag "${{ inputs.dist-tag }}"

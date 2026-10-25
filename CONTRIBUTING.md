@@ -20,7 +20,7 @@ fresh build via the same `prepare` hook.
 | Unit tests         | [Vitest]                     | `pnpm test`         |
 | Coverage (v8)      | Vitest + `@vitest/coverage-v8` | `pnpm test:coverage` |
 | Benchmarks         | Vitest bench                 | `pnpm bench`        |
-| Bundle (ESM + CJS + d.ts) | [tsup]                | `pnpm build:check`  |
+| Bundle (ESM + CJS + d.ts) | [tsup]                | `pnpm build`  |
 | Package exports    | [publint] + [are-the-types-wrong] | `pnpm check:exports` |
 | Bundle size        | [size-limit]                 | `pnpm size`         |
 | Examples smoke     | tsx                          | `pnpm examples`     |
@@ -38,7 +38,6 @@ pnpm run ci
 - `tests/` — Vitest specs (`*.test.ts`) and committed snapshots.
 - `bench/` — Vitest benchmarks (`*.bench.ts`), run separately from tests.
 - `examples/` — runnable API examples, also used as a CI smoke test.
-- `scripts/build.ts` — the versioned release build (`pnpm build`).
 
 Two tsconfigs: `tsconfig.json` typechecks the whole repo (`noEmit`);
 `tsconfig.build.json` narrows to `src/` for emit.

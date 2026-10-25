@@ -1,6 +1,6 @@
 {
   "name": "@rtkelly-labs/mermaid-toolkit",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.0",
   "description": "Lightweight MDX & static SVG renderer for Mermaid powered by Pele with ASCII art fallbacks",
   "type": "commonjs",
   "main": "./dist/index.js",
@@ -26,9 +26,8 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsx scripts/build.ts",
-    "build:check": "tsup src/index.ts --format cjs,esm --dts --clean --tsconfig tsconfig.build.json",
-    "prepare": "pnpm build:check",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean --tsconfig tsconfig.build.json",
+    "prepare": "pnpm build",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch --tsconfig tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -41,7 +40,7 @@
     "check:exports": "publint --strict && attw --pack .",
     "size": "size-limit",
     "examples": "tsx examples/index.ts",
-    "ci": "pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm build:check && pnpm check:exports && pnpm size",
+    "ci": "pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm build && pnpm check:exports && pnpm size",
     "prepublishOnly": "pnpm build"
   },
   "keywords": [
