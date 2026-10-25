@@ -10,16 +10,16 @@ describe('Website Scaffolding Integration Tests', () => {
   it('compiles site markdown files into static HTML artifacts', () => {
     const manifest = buildSite({ outDir: testOutDir });
 
-    expect(manifest.pages.length).toBe(5);
-    expect(manifest.totalSvgCount).toBeGreaterThanOrEqual(3);
-    expect(manifest.totalAsciiCount).toBeGreaterThanOrEqual(3);
+    expect(manifest.pages.length).toBe(6);
+    expect(manifest.totalSvgCount).toBeGreaterThanOrEqual(5);
+    expect(manifest.totalAsciiCount).toBeGreaterThanOrEqual(5);
 
     // Verify manifest file exists on disk
     const manifestPath = path.join(testOutDir, 'manifest.json');
     expect(fs.existsSync(manifestPath)).toBe(true);
 
     const loadedManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf-8'));
-    expect(loadedManifest.pages).toHaveLength(5);
+    expect(loadedManifest.pages).toHaveLength(6);
   });
 
   it('emits theme.css with native design system Pele CSS variables', () => {
@@ -101,5 +101,18 @@ describe('Website Scaffolding Integration Tests', () => {
     expect(html).toContain('class="mermaid-diagram mermaid-error"');
     expect(html).toContain('Failed to render diagram:');
     expect(html).not.toContain('<svg');
+  });
+
+  it('verifies fixtures.html renders foundational gallery with SVGs and ASCII fallbacks', () => {
+    const htmlPath = path.join(testOutDir, 'fixtures.html');
+    const html = fs.readFileSync(htmlPath, 'utf-8');
+
+    expect(html).toContain('<h1>Foundational Fixtures Gallery</h1>');
+    expect(html).toContain('C4Context');
+    expect(html).toContain('Banking Customer');
+    expect(html).toContain('PendingPayment');
+    expect(html).toContain('USD Millions');
+    expect(html).toContain('<svg');
+    expect(html).toContain('<details class="pele-ascii-fallback">');
   });
 });
