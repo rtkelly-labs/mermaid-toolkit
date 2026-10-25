@@ -33,6 +33,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "test:integration": "vitest run tests/integration.test.ts",
     "bench": "vitest bench --run",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
@@ -40,6 +41,8 @@
     "check:exports": "publint --strict && attw --pack .",
     "size": "size-limit",
     "examples": "tsx examples/index.ts",
+    "site:build": "tsx site/builder.ts",
+    "site:preview": "tsx site/preview.ts",
     "ci": "pnpm lint && pnpm typecheck && pnpm test:coverage && pnpm build && pnpm check:exports && pnpm size",
     "prepublishOnly": "pnpm build"
   },
