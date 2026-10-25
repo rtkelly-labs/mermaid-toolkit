@@ -1,7 +1,7 @@
 {
   "name": "@rtkelly/mermaid-toolkit",
   "version": "0.0.1",
-  "description": "Professional Mermaid.js theme engine with ASCII rendering",
+  "description": "Lightweight MDX & static SVG renderer for Mermaid powered by Pele with ASCII art fallbacks",
   "type": "commonjs",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -46,16 +46,16 @@
   },
   "keywords": [
     "mermaid",
+    "pele",
+    "mdx",
+    "remark",
+    "rehype",
+    "svg",
     "ascii",
     "ascii-art",
     "diagram",
     "flowchart",
-    "sequence-diagram",
-    "theme",
-    "theming",
-    "toolkit",
     "text-diagram",
-    "cli",
     "markdown",
     "llms.txt"
   ],
@@ -77,21 +77,12 @@
     "node": ">=20"
   },
   "packageManager": "pnpm@10.33.0",
-  "peerDependencies": {
-    "mermaid": "^11.0.0"
-  },
-  "peerDependenciesMeta": {
-    "mermaid": {
-      "optional": true
-    }
-  },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
     "@biomejs/biome": "^2.5.3",
     "@size-limit/preset-small-lib": "^12.1.0",
     "@types/node": "^22.10.5",
     "@vitest/coverage-v8": "4.0.17",
-    "mermaid": "^11.12.2",
     "publint": "^0.3.21",
     "size-limit": "^12.1.0",
     "tsup": "^8.3.5",
@@ -103,17 +94,26 @@
     {
       "name": "ESM (import)",
       "path": "dist/index.mjs",
-      "limit": "6 kB"
+      "limit": "6 kB",
+      "ignore": [
+        "pele"
+      ]
     },
     {
       "name": "CJS (require)",
       "path": "dist/index.js",
-      "limit": "6 kB"
+      "limit": "6 kB",
+      "ignore": [
+        "pele"
+      ]
     }
   ],
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
     ]
+  },
+  "dependencies": {
+    "pele": "^1.10.0"
   }
 }

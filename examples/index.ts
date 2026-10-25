@@ -5,4 +5,4 @@
  * Run with: `pnpm examples`
  */
 import './ascii-rendering';
-import './theming';
+import './mdx-rendering';

@@ -6,14 +6,14 @@ directly (via `tsx`), so they always exercise the current source.
 | File                  | Shows                                                        |
 | --------------------- | ----------------------------------------------------------- |
 | `ascii-rendering.ts`  | `mermaidToAscii` — unicode vs. ASCII output, graceful fallback |
-| `theming.ts`          | presets, `applyThemeToMermaid`, `generateMermaidConfig`, `ThemeEngine` |
+| `mdx-rendering.ts`    | `renderSvg` with Pele + `remarkMermaid` plugin for MDX pipelines |
 | `index.ts`            | runs all of the above (this is what `pnpm examples` runs)   |
 
 ## Run
 
 ```bash
 pnpm examples                    # run everything
-pnpm tsx examples/theming.ts     # run a single example
+pnpm tsx examples/mdx-rendering.ts # run a single example
 ```
 
 The `index.ts` aggregate is also invoked in CI as a lightweight smoke test —
