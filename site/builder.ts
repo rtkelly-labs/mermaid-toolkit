@@ -45,6 +45,18 @@ function renderNav(activeHref: string): string {
   }).join(' ');
 }
 
+function escapeHtmlProse(text: string): string {
+  const escaped = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+  // Render markdown inline code `...` as <code>...</code>
+  return escaped.replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
 function parseSimpleMarkdownToAst(markdown: string): MdastNode {
   const lines = markdown.split('\n');
   const children: MdastNode[] = [];
@@ -77,11 +89,20 @@ function parseSimpleMarkdownToAst(markdown: string): MdastNode {
     }
 
     if (line.startsWith('# ')) {
-      children.push({ type: 'html', value: `<h1>${line.slice(2)}</h1>` });
+      children.push({
+        type: 'html',
+        value: `<h1>${escapeHtmlProse(line.slice(2))}</h1>`,
+      });
     } else if (line.startsWith('## ')) {
-      children.push({ type: 'html', value: `<h2>${line.slice(3)}</h2>` });
+      children.push({
+        type: 'html',
+        value: `<h2>${escapeHtmlProse(line.slice(3))}</h2>`,
+      });
     } else if (line.trim().length > 0) {
-      children.push({ type: 'html', value: `<p>${line}</p>` });
+      children.push({
+        type: 'html',
+        value: `<p>${escapeHtmlProse(line)}</p>`,
+      });
     }
   }
 

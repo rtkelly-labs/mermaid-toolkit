@@ -80,6 +80,10 @@ describe('Website Scaffolding Integration Tests', () => {
     expect(html).toContain('<details class="pele-ascii-fallback">');
     expect(html).toContain('Approved?');
     expect(html).toContain('Editorial Review');
+
+    // Verify prose inline markdown code is safely escaped (Codex review finding)
+    expect(html).toContain('<code>&lt;details&gt;</code>');
+    expect(html).not.toMatch(/<p>[^<]*<details>/);
   });
 
   it('verifies ascii-terminal.html uses pure text output without SVGs', () => {

@@ -3,6 +3,7 @@ import http from 'node:http';
 import path from 'node:path';
 
 const PORT = Number(process.env.PORT || 3000);
+const HOST = process.env.HOST || '127.0.0.1';
 const outDir = path.resolve(__dirname, '..', 'temp', 'site-artifacts');
 
 if (!fs.existsSync(outDir)) {
@@ -24,10 +25,12 @@ const server = http.createServer((req, res) => {
     reqPath = '/index.html';
   }
 
-  const filePath = path.join(outDir, reqPath);
+  // Resolve file path safely within outDir
+  const filePath = path.resolve(outDir, `.${reqPath}`);
+  const relative = path.relative(outDir, filePath);
 
-  // Security: prevent path traversal out of outDir
-  if (!filePath.startsWith(outDir)) {
+  // Security: prevent path traversal out of outDir using boundary-aware check
+  if (relative.startsWith('..') || path.isAbsolute(relative)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('403 Forbidden');
     return;
@@ -45,9 +48,9 @@ const server = http.createServer((req, res) => {
   }
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, HOST, () => {
   console.log(
-    `\n🚀 Mermaid Toolkit Showcase running at: http://localhost:${PORT}/`,
+    `\n🚀 Mermaid Toolkit Showcase running at: http://${HOST}:${PORT}/`,
   );
   console.log(`   Serving artifacts from: ${outDir}\n`);
 });
