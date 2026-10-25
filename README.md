@@ -30,9 +30,9 @@ Traditional Mermaid.js rendering in MDX blogs requires shipping a heavy 2–3MB 
 ## Installation
 
 ```bash
-pnpm add @rtkelly-labs/mermaid-toolkit
+pnpm add @rtkelly-labs/mermaid-toolkit@next
 # or
-npm install @rtkelly-labs/mermaid-toolkit
+npm install @rtkelly-labs/mermaid-toolkit@next
 ```
 
 ---
