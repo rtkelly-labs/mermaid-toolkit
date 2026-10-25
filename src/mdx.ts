@@ -88,7 +88,7 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#39;');
 }
 
-function generateDiagramHtml(
+export function generateDiagramHtml(
   code: string,
   options: Required<
     Pick<

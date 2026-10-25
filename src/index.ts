@@ -4,16 +4,28 @@ import { FlowchartRenderer } from './renderers/flowchart';
 import type { AsciiOptions, RenderResult } from './types';
 
 export { render as renderPele } from 'pele';
+// Marked Extension
+export type { MarkedCodeToken, MarkedMermaidOptions } from './marked';
+export { markedMermaid } from './marked';
 export type {
   HastNode,
   MdastNode,
   RehypeMermaidOptions,
   RemarkMermaidOptions,
 } from './mdx';
-// MDX / Markdown Plugins
-export { rehypeMermaid, remarkMermaid } from './mdx';
+export {
+  generateDiagramHtml,
+  rehypeMermaid,
+  remarkMermaid,
+} from './mdx';
 // Parser & Types
 export { parseMermaid } from './parser';
+// Framework Presets
+export {
+  createAstroMermaidIntegration,
+  createViteMermaidPlugin,
+  getNextMdxPlugins,
+} from './presets';
 export type { RenderSvgOptions, RenderSvgResult } from './svg';
 // SVG Rendering via Pele
 export { renderSvg } from './svg';
