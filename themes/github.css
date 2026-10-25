@@ -1,0 +1,54 @@
+/**
+ * @rtkelly-labs/mermaid-toolkit - GitHub Theme
+ * Faithful mapping of GitHub Primer color tokens and system fonts
+ */
+
+:root,
+.pele {
+  --pele-bg: #ffffff;
+  --pele-fg: #1f2328;
+  --pele-muted: #656d76;
+  --pele-line: #1f2328;
+  --pele-surface: #f6f8fa;
+  --pele-surface-alt: #eaeef2;
+  --pele-border: #d0d7de;
+  --pele-accent: #0969da;
+  --pele-font:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica,
+    Arial, sans-serif;
+  --pele-radius: 6px;
+
+  --pele-series-1: #0969da;
+  --pele-series-2: #8250df;
+  --pele-series-3: #1a7f37;
+  --pele-series-4: #9a6700;
+  --pele-series-5: #cf222e;
+  --pele-series-6: #bf3989;
+  --pele-series-7: #0550ae;
+  --pele-series-8: #116329;
+}
+
+[data-theme="dark"],
+.dark {
+  --pele-bg: #0d1117;
+  --pele-fg: #f0f6fc;
+  --pele-muted: #8d96a0;
+  --pele-line: #f0f6fc;
+  --pele-surface: #161b22;
+  --pele-surface-alt: #21262d;
+  --pele-border: #30363d;
+  --pele-accent: #2f81f7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light) {
+    --pele-bg: #0d1117;
+    --pele-fg: #f0f6fc;
+    --pele-muted: #8d96a0;
+    --pele-line: #f0f6fc;
+    --pele-surface: #161b22;
+    --pele-surface-alt: #21262d;
+    --pele-border: #30363d;
+    --pele-accent: #2f81f7;
+  }
+}

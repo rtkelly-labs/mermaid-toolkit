@@ -1,0 +1,59 @@
+/**
+ * @rtkelly-labs/mermaid-toolkit - Default Design System Theme
+ * Native Pele CSS variables with design system token integration
+ */
+
+:root,
+.pele {
+  --pele-bg: var(--ds-surface, #ffffff);
+  --pele-fg: var(--ds-text, #0f172a);
+  --pele-muted: var(--ds-text-muted, #64748b);
+  --pele-line: var(--ds-border-strong, #334155);
+  --pele-surface: var(--ds-surface-subtle, #f8fafc);
+  --pele-surface-alt: var(--ds-surface-muted, #f1f5f9);
+  --pele-border: var(--ds-border, #cbd5e1);
+  --pele-accent: var(--ds-primary, #2563eb);
+  --pele-font: var(
+    --ds-font-sans,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif
+  );
+  --pele-radius: var(--ds-radius, 6px);
+
+  --pele-series-1: var(--ds-series-1, #2563eb);
+  --pele-series-2: var(--ds-series-2, #7c3aed);
+  --pele-series-3: var(--ds-series-3, #059669);
+  --pele-series-4: var(--ds-series-4, #d97706);
+  --pele-series-5: var(--ds-series-5, #dc2626);
+  --pele-series-6: var(--ds-series-6, #0891b2);
+  --pele-series-7: var(--ds-series-7, #4f46e5);
+  --pele-series-8: var(--ds-series-8, #9333ea);
+}
+
+[data-theme="dark"],
+.dark {
+  --pele-bg: var(--ds-surface, #0b0f19);
+  --pele-fg: var(--ds-text, #f8fafc);
+  --pele-muted: var(--ds-text-muted, #94a3b8);
+  --pele-line: var(--ds-border-strong, #475569);
+  --pele-surface: var(--ds-surface-subtle, #131b2e);
+  --pele-surface-alt: var(--ds-surface-muted, #1e293b);
+  --pele-border: var(--ds-border, #334155);
+  --pele-accent: var(--ds-primary, #60a5fa);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light) {
+    --pele-bg: var(--ds-surface, #0b0f19);
+    --pele-fg: var(--ds-text, #f8fafc);
+    --pele-muted: var(--ds-text-muted, #94a3b8);
+    --pele-line: var(--ds-border-strong, #475569);
+    --pele-surface: var(--ds-surface-subtle, #131b2e);
+    --pele-surface-alt: var(--ds-surface-muted, #1e293b);
+    --pele-border: var(--ds-border, #334155);
+    --pele-accent: var(--ds-primary, #60a5fa);
+  }
+}
