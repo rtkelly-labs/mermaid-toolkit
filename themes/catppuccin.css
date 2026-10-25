@@ -1,0 +1,73 @@
+/**
+ * @rtkelly-labs/mermaid-toolkit - Catppuccin Theme
+ * Soothing pastel palette: Latte for light mode, Mocha for dark mode
+ */
+
+:root {
+  --pele-bg: #eff1f5;
+  --pele-fg: #4c4f69;
+  --pele-muted: #6c6f85;
+  --pele-line: #4c4f69;
+  --pele-surface: #e6e9ef;
+  --pele-surface-alt: #ccd0da;
+  --pele-border: #bcc0cc;
+  --pele-accent: #1e66f5;
+  --pele-font:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --pele-radius: 6px;
+
+  --pele-series-1: #1e66f5;
+  --pele-series-2: #8839ef;
+  --pele-series-3: #ea76cb;
+  --pele-series-4: #40a02b;
+  --pele-series-5: #fe640b;
+  --pele-series-6: #d20f39;
+  --pele-series-7: #179299;
+  --pele-series-8: #7287fd;
+}
+
+[data-theme="dark"],
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
+  --pele-bg: #1e1e2e;
+  --pele-fg: #cdd6f4;
+  --pele-muted: #a6adc8;
+  --pele-line: #cdd6f4;
+  --pele-surface: #181825;
+  --pele-surface-alt: #313244;
+  --pele-border: #45475a;
+  --pele-accent: #89b4fa;
+
+  --pele-series-1: #89b4fa;
+  --pele-series-2: #cba6f7;
+  --pele-series-3: #f5c2e7;
+  --pele-series-4: #a6e3a1;
+  --pele-series-5: #fab387;
+  --pele-series-6: #f38ba8;
+  --pele-series-7: #94e2d5;
+  --pele-series-8: #b4befe;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light),
+  :root:not([data-theme="light"]):not(.light) .pele {
+    --pele-bg: #1e1e2e;
+    --pele-fg: #cdd6f4;
+    --pele-muted: #a6adc8;
+    --pele-line: #cdd6f4;
+    --pele-surface: #181825;
+    --pele-surface-alt: #313244;
+    --pele-border: #45475a;
+    --pele-accent: #89b4fa;
+
+    --pele-series-1: #89b4fa;
+    --pele-series-2: #cba6f7;
+    --pele-series-3: #f5c2e7;
+    --pele-series-4: #a6e3a1;
+    --pele-series-5: #fab387;
+    --pele-series-6: #f38ba8;
+    --pele-series-7: #94e2d5;
+    --pele-series-8: #b4befe;
+  }
+}

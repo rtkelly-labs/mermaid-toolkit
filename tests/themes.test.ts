@@ -11,6 +11,8 @@ describe('CSS Theme Presets (Issue #50)', () => {
     'retro-brutalist.css',
     'github.css',
     'tailwind.css',
+    'catppuccin.css',
+    'nord.css',
   ];
 
   it('exposes all expected theme files', () => {
