@@ -1,0 +1,55 @@
+/**
+ * @rtkelly-labs/mermaid-toolkit - Tailwind Slate Theme
+ * Modern Tailwind CSS palette with Slate neutral foundation and Indigo accents
+ */
+
+:root {
+  --pele-bg: #ffffff;
+  --pele-fg: #0f172a;
+  --pele-muted: #64748b;
+  --pele-line: #334155;
+  --pele-surface: #f8fafc;
+  --pele-surface-alt: #f1f5f9;
+  --pele-border: #e2e8f0;
+  --pele-accent: #4f46e5;
+  --pele-font:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --pele-radius: 8px;
+
+  --pele-series-1: #6366f1;
+  --pele-series-2: #ec4899;
+  --pele-series-3: #10b981;
+  --pele-series-4: #f59e0b;
+  --pele-series-5: #ef4444;
+  --pele-series-6: #06b6d4;
+  --pele-series-7: #8b5cf6;
+  --pele-series-8: #14b8a6;
+}
+
+[data-theme="dark"],
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
+  --pele-bg: #020617;
+  --pele-fg: #f8fafc;
+  --pele-muted: #94a3b8;
+  --pele-line: #475569;
+  --pele-surface: #0f172a;
+  --pele-surface-alt: #1e293b;
+  --pele-border: #1e293b;
+  --pele-accent: #818cf8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light),
+  :root:not([data-theme="light"]):not(.light) .pele {
+    --pele-bg: #020617;
+    --pele-fg: #f8fafc;
+    --pele-muted: #94a3b8;
+    --pele-line: #475569;
+    --pele-surface: #0f172a;
+    --pele-surface-alt: #1e293b;
+    --pele-border: #1e293b;
+    --pele-accent: #818cf8;
+  }
+}

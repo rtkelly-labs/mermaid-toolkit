@@ -1,0 +1,73 @@
+/**
+ * @rtkelly-labs/mermaid-toolkit - Nord Theme
+ * Arctic, north-bluish color palette
+ */
+
+:root {
+  --pele-bg: #eceff4;
+  --pele-fg: #2e3440;
+  --pele-muted: #4c566a;
+  --pele-line: #2e3440;
+  --pele-surface: #e5e9f0;
+  --pele-surface-alt: #d8dee9;
+  --pele-border: #d8dee9;
+  --pele-accent: #5e81ac;
+  --pele-font:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --pele-radius: 6px;
+
+  --pele-series-1: #5e81ac;
+  --pele-series-2: #88c0d0;
+  --pele-series-3: #a3be8c;
+  --pele-series-4: #ebcb8b;
+  --pele-series-5: #d08770;
+  --pele-series-6: #bf616a;
+  --pele-series-7: #b48ead;
+  --pele-series-8: #8fbcbb;
+}
+
+[data-theme="dark"],
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
+  --pele-bg: #2e3440;
+  --pele-fg: #eceff4;
+  --pele-muted: #d8dee9;
+  --pele-line: #eceff4;
+  --pele-surface: #3b4252;
+  --pele-surface-alt: #434c5e;
+  --pele-border: #4c566a;
+  --pele-accent: #88c0d0;
+
+  --pele-series-1: #88c0d0;
+  --pele-series-2: #81a1c1;
+  --pele-series-3: #a3be8c;
+  --pele-series-4: #ebcb8b;
+  --pele-series-5: #d08770;
+  --pele-series-6: #bf616a;
+  --pele-series-7: #b48ead;
+  --pele-series-8: #8fbcbb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light),
+  :root:not([data-theme="light"]):not(.light) .pele {
+    --pele-bg: #2e3440;
+    --pele-fg: #eceff4;
+    --pele-muted: #d8dee9;
+    --pele-line: #eceff4;
+    --pele-surface: #3b4252;
+    --pele-surface-alt: #434c5e;
+    --pele-border: #4c566a;
+    --pele-accent: #88c0d0;
+
+    --pele-series-1: #88c0d0;
+    --pele-series-2: #81a1c1;
+    --pele-series-3: #a3be8c;
+    --pele-series-4: #ebcb8b;
+    --pele-series-5: #d08770;
+    --pele-series-6: #bf616a;
+    --pele-series-7: #b48ead;
+    --pele-series-8: #8fbcbb;
+  }
+}

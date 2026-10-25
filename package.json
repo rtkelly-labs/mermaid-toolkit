@@ -6,7 +6,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "themes/*.css"
+  ],
   "exports": {
     ".": {
       "import": {
@@ -18,10 +20,12 @@
         "default": "./dist/index.js"
       }
     },
+    "./themes/*": "./themes/*",
     "./package.json": "./package.json"
   },
   "files": [
     "dist",
+    "themes",
     "README.md",
     "LICENSE"
   ],
