@@ -3,19 +3,20 @@ import { parseMermaid } from './parser';
 import { FlowchartRenderer } from './renderers/flowchart';
 import type { AsciiOptions, RenderResult } from './types';
 
-export {
-  applyThemeToMermaid,
-  generateMermaidConfig,
-  ThemeEngine,
-} from './theme-engine';
-export { getPresetConfig, THEME_PRESETS } from './theme-presets';
+export { render as renderPele } from 'pele';
 export type {
-  GeneratedTheme,
-  MermaidConfig,
-  MermaidThemeVariables,
-  ThemeEngineOptions,
-  ThemePreset,
-} from './theme-types';
+  HastNode,
+  MdastNode,
+  RehypeMermaidOptions,
+  RemarkMermaidOptions,
+} from './mdx';
+// MDX / Markdown Plugins
+export { rehypeMermaid, remarkMermaid } from './mdx';
+// Parser & Types
+export { parseMermaid } from './parser';
+export type { RenderSvgOptions, RenderSvgResult } from './svg';
+// SVG Rendering via Pele
+export { renderSvg } from './svg';
 export type {
   AsciiOptions,
   FlowchartDiagram,
@@ -24,6 +25,11 @@ export type {
   SequenceDiagram,
 } from './types';
 
+/**
+ * Convert Mermaid diagram syntax to an ASCII / Unicode box-drawing text diagram.
+ * Supports flowcharts (LR, RL, TD, BT) with box/rounded/diamond node labels.
+ * Ideal for terminal output, screen reader accessibility, and llms.txt generation.
+ */
 export function mermaidToAscii(
   mermaidCode: string,
   options: AsciiOptions = {},

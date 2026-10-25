@@ -1,7 +1,6 @@
 import { bench, describe } from 'vitest';
-import { mermaidToAscii } from '../src/index';
+import { mermaidToAscii, renderSvg } from '../src/index';
 import { parseMermaid } from '../src/parser';
-import { ThemeEngine } from '../src/theme-engine';
 
 /** Build a linear flowchart of `n` nodes: A0 --> A1 --> ... */
 function linearFlowchart(n: number): string {
@@ -40,11 +39,14 @@ describe('mermaidToAscii (parse + layout + render)', () => {
   });
 });
 
-describe('ThemeEngine', () => {
-  bench('generate init code from preset', () => {
-    ThemeEngine.fromPreset('retro-brutalist').generateInitCode();
+describe('renderSvg (Pele SVG rendering)', () => {
+  bench('small (3 nodes)', () => {
+    renderSvg(SMALL);
   });
-  bench('apply theme directive to diagram', () => {
-    ThemeEngine.fromPreset('dark').applyTheme(MEDIUM);
+  bench('medium (20 nodes)', () => {
+    renderSvg(MEDIUM);
+  });
+  bench('large (100 nodes)', () => {
+    renderSvg(LARGE);
   });
 });

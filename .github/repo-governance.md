@@ -11,7 +11,7 @@ once. The workflow side (`ci.yml`) is already in the repo.
 Run the self-contained, idempotent script (needs `gh`, authenticated as an admin):
 
 ```bash
-./scripts/setup-repo-governance.sh                # rtkelly13/mermaid-toolkit
+./scripts/setup-repo-governance.sh                # rtkelly-labs/mermaid-toolkit
 ./scripts/setup-repo-governance.sh owner/repo     # or another repo
 ```
 
