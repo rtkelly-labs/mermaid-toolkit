@@ -40,6 +40,18 @@ describe('renderSvg (Pele integration)', () => {
     expect(result.svg).toContain('id="diagram-123"');
   });
 
+  it('sanitizes className and id to prevent attribute breakout', () => {
+    const code = `graph LR\n  A --> B`;
+    const result = renderSvg(code, {
+      className: 'safe" onmouseover="alert(1)',
+      id: 'my-id"><script>',
+    });
+
+    expect(result.svg).not.toContain('" onmouseover=');
+    expect(result.svg).not.toContain('"><script>');
+    expect(result.svg).toContain('class="safe onmouseover=alert(1) pele');
+  });
+
   it('handles invalid or unsupported syntax gracefully', () => {
     const result = renderSvg('invalid !!! diagram syntax');
 
