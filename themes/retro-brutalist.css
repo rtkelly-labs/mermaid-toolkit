@@ -4,8 +4,7 @@
  * and bold neo-brutalist series accents (matches personal/docs palette).
  */
 
-:root,
-.pele {
+:root {
   --pele-bg: #fffdf5;
   --pele-fg: #18181b;
   --pele-muted: #52525b;
@@ -32,7 +31,9 @@
 }
 
 [data-theme="dark"],
-.dark {
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
   --pele-bg: #121214;
   --pele-fg: #fafafa;
   --pele-muted: #a1a1aa;
@@ -44,7 +45,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not(.light) {
+  :root:not([data-theme="light"]):not(.light),
+  :root:not([data-theme="light"]):not(.light) .pele {
     --pele-bg: #121214;
     --pele-fg: #fafafa;
     --pele-muted: #a1a1aa;

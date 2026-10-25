@@ -20,10 +20,11 @@ describe('CSS Theme Presets (Issue #50)', () => {
     }
   });
 
-  it('exports ./themes/* in package.json', () => {
+  it('exports ./themes/* in package.json and marks stylesheets as side effects', () => {
     expect(packageJson.exports).toHaveProperty('./themes/*');
     expect(packageJson.exports['./themes/*']).toBe('./themes/*');
     expect(packageJson.files).toContain('themes');
+    expect(packageJson.sideEffects).toContain('themes/*.css');
   });
 
   for (const themeFile of expectedThemes) {
@@ -52,8 +53,9 @@ describe('CSS Theme Presets (Issue #50)', () => {
         }
       });
 
-      it('includes dark mode overrides via data attribute and media query', () => {
+      it('includes dark mode overrides for root and descendant .pele elements', () => {
         expect(content).toContain('[data-theme="dark"]');
+        expect(content).toContain('[data-theme="dark"] .pele');
         expect(content).toContain('@media (prefers-color-scheme: dark)');
       });
     });

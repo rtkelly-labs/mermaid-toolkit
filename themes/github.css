@@ -3,8 +3,7 @@
  * Faithful mapping of GitHub Primer color tokens and system fonts
  */
 
-:root,
-.pele {
+:root {
   --pele-bg: #ffffff;
   --pele-fg: #1f2328;
   --pele-muted: #656d76;
@@ -29,7 +28,9 @@
 }
 
 [data-theme="dark"],
-.dark {
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
   --pele-bg: #0d1117;
   --pele-fg: #f0f6fc;
   --pele-muted: #8d96a0;
@@ -41,7 +42,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not(.light) {
+  :root:not([data-theme="light"]):not(.light),
+  :root:not([data-theme="light"]):not(.light) .pele {
     --pele-bg: #0d1117;
     --pele-fg: #f0f6fc;
     --pele-muted: #8d96a0;

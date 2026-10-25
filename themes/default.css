@@ -3,8 +3,7 @@
  * Native Pele CSS variables with design system token integration
  */
 
-:root,
-.pele {
+:root {
   --pele-bg: var(--ds-surface, #ffffff);
   --pele-fg: var(--ds-text, #0f172a);
   --pele-muted: var(--ds-text-muted, #64748b);
@@ -34,7 +33,9 @@
 }
 
 [data-theme="dark"],
-.dark {
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
   --pele-bg: var(--ds-surface, #0b0f19);
   --pele-fg: var(--ds-text, #f8fafc);
   --pele-muted: var(--ds-text-muted, #94a3b8);
@@ -46,7 +47,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not(.light) {
+  :root:not([data-theme="light"]):not(.light),
+  :root:not([data-theme="light"]):not(.light) .pele {
     --pele-bg: var(--ds-surface, #0b0f19);
     --pele-fg: var(--ds-text, #f8fafc);
     --pele-muted: var(--ds-text-muted, #94a3b8);

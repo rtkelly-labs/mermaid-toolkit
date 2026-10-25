@@ -3,8 +3,7 @@
  * Modern Tailwind CSS palette with Slate neutral foundation and Indigo accents
  */
 
-:root,
-.pele {
+:root {
   --pele-bg: #ffffff;
   --pele-fg: #0f172a;
   --pele-muted: #64748b;
@@ -28,7 +27,9 @@
 }
 
 [data-theme="dark"],
-.dark {
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
   --pele-bg: #020617;
   --pele-fg: #f8fafc;
   --pele-muted: #94a3b8;
@@ -40,7 +41,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]):not(.light) {
+  :root:not([data-theme="light"]):not(.light),
+  :root:not([data-theme="light"]):not(.light) .pele {
     --pele-bg: #020617;
     --pele-fg: #f8fafc;
     --pele-muted: #94a3b8;
