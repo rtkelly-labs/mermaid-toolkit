@@ -98,11 +98,12 @@ function generateDiagramHtml(
   >,
 ): { html: string; success: boolean } {
   const { strategy, className, fallbackSummary, onError } = options;
+  const safeClassName = escapeHtml(className);
 
   if (strategy === 'ascii') {
     const ascii = mermaidToAscii(code);
     return {
-      html: `<div class="${className} mermaid-ascii"><pre><code>${escapeHtml(ascii)}</code></pre></div>`,
+      html: `<div class="${safeClassName} mermaid-ascii"><pre><code>${escapeHtml(ascii)}</code></pre></div>`,
       success: true,
     };
   }
@@ -113,14 +114,14 @@ function generateDiagramHtml(
     if (onError === 'ascii') {
       const ascii = mermaidToAscii(code);
       return {
-        html: `<div class="${className} mermaid-ascii"><pre><code>${escapeHtml(ascii)}</code></pre></div>`,
+        html: `<div class="${safeClassName} mermaid-ascii"><pre><code>${escapeHtml(ascii)}</code></pre></div>`,
         success: true,
       };
     }
     if (onError === 'error') {
       return {
-        html: `<div class="${className} mermaid-error"><p>Failed to render diagram: ${escapeHtml(svgResult.error)}</p></div>`,
-        success: false,
+        html: `<div class="${safeClassName} mermaid-error"><p>Failed to render diagram: ${escapeHtml(svgResult.error)}</p></div>`,
+        success: true,
       };
     }
     return { html: '', success: false };
@@ -128,14 +129,14 @@ function generateDiagramHtml(
 
   if (strategy === 'svg') {
     return {
-      html: `<div class="${className} pele-container">${svgResult.svg}</div>`,
+      html: `<div class="${safeClassName} pele-container">${svgResult.svg}</div>`,
       success: true,
     };
   }
 
   // strategy === 'both'
   const ascii = mermaidToAscii(code);
-  const html = `<figure class="${className} pele-container">
+  const html = `<figure class="${safeClassName} pele-container">
   <div class="pele-svg-wrapper">${svgResult.svg}</div>
   <details class="pele-ascii-fallback">
     <summary>${escapeHtml(fallbackSummary)}</summary>

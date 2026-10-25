@@ -38,6 +38,10 @@ export interface RenderSvgResult {
   error?: string;
 }
 
+function sanitizeAttr(val: string): string {
+  return val.replace(/["'<>&]/g, '').trim();
+}
+
 /**
  * Render Mermaid diagram code directly into theme-aware SVG using Pele.
  *
@@ -54,14 +58,20 @@ export function renderSvg(
     let svg = result.svg;
 
     if (options.className) {
-      if (svg.includes('class="')) {
-        svg = svg.replace('class="', `class="${options.className} `);
-      } else {
-        svg = svg.replace('<svg ', `<svg class="${options.className}" `);
+      const safeClass = sanitizeAttr(options.className);
+      if (safeClass) {
+        if (svg.includes('class="')) {
+          svg = svg.replace('class="', `class="${safeClass} `);
+        } else {
+          svg = svg.replace('<svg ', `<svg class="${safeClass}" `);
+        }
       }
     }
     if (options.id) {
-      svg = svg.replace('<svg ', `<svg id="${options.id}" `);
+      const safeId = sanitizeAttr(options.id);
+      if (safeId) {
+        svg = svg.replace('<svg ', `<svg id="${safeId}" `);
+      }
     }
 
     return {
