@@ -1,5 +1,5 @@
 {
-  "name": "@rtkelly/mermaid-toolkit",
+  "name": "@rtkelly-labs/mermaid-toolkit",
   "version": "0.0.1",
   "description": "Lightweight MDX & static SVG renderer for Mermaid powered by Pele with ASCII art fallbacks",
   "type": "commonjs",
@@ -63,11 +63,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rtkelly13/mermaid-toolkit.git"
+    "url": "git+https://github.com/rtkelly-labs/mermaid-toolkit.git"
   },
-  "homepage": "https://github.com/rtkelly13/mermaid-toolkit#readme",
+  "homepage": "https://github.com/rtkelly-labs/mermaid-toolkit#readme",
   "bugs": {
-    "url": "https://github.com/rtkelly13/mermaid-toolkit/issues"
+    "url": "https://github.com/rtkelly-labs/mermaid-toolkit/issues"
   },
   "publishConfig": {
     "access": "public",

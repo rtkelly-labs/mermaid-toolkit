@@ -100,10 +100,11 @@ jobs:
         working-directory: /tmp/consumer
         run: |
           cat > esm.mjs <<'EOF'
-          import { mermaidToAscii, ThemeEngine } from '@rtkelly/mermaid-toolkit';
+          import { mermaidToAscii, renderSvg } from '@rtkelly-labs/mermaid-toolkit';
           const out = mermaidToAscii('graph LR\n A[Hi] --> B[There]');
           if (!out.includes('Hi') || !out.includes('There')) throw new Error('ESM render failed');
-          if (!ThemeEngine.fromPreset('dark')) throw new Error('ESM ThemeEngine failed');
+          const svgResult = renderSvg('graph LR\n A --> B');
+          if (!svgResult.svg.includes('<svg')) throw new Error('ESM renderSvg failed');
           console.log('ESM import OK');
           EOF
           node esm.mjs
@@ -112,9 +113,11 @@ jobs:
         working-directory: /tmp/consumer
         run: |
           cat > cjs.cjs <<'EOF'
-          const { mermaidToAscii } = require('@rtkelly/mermaid-toolkit');
+          const { mermaidToAscii, renderSvg } = require('@rtkelly-labs/mermaid-toolkit');
           const out = mermaidToAscii('graph LR\n A[Hi] --> B[There]', { asciiOnly: true });
           if (!out.includes('Hi')) throw new Error('CJS render failed');
+          const svgResult = renderSvg('graph LR\n A --> B');
+          if (!svgResult.svg.includes('<svg')) throw new Error('CJS renderSvg failed');
           console.log('CJS require OK');
           EOF
           node cjs.cjs

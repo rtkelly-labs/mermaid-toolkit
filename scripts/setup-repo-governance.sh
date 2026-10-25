@@ -10,11 +10,11 @@
 # place rather than creating duplicates.
 #
 # Requires: gh (authenticated as an admin of the repo). Usage:
-#   ./setup-repo-governance.sh                      # defaults to rtkelly13/mermaid-toolkit
+#   ./setup-repo-governance.sh                      # defaults to rtkelly-labs/mermaid-toolkit
 #   ./setup-repo-governance.sh owner/repo           # or target another repo
 set -euo pipefail
 
-REPO="${1:-rtkelly13/mermaid-toolkit}"
+REPO="${1:-rtkelly-labs/mermaid-toolkit}"
 RULESET_NAME="main"
 
 echo "==> Repo merge settings ($REPO)"

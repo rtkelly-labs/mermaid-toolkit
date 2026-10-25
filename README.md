@@ -1,4 +1,4 @@
-# @rtkelly/mermaid-toolkit
+# @rtkelly-labs/mermaid-toolkit
 
 A lightweight, zero-runtime-overhead toolkit for Mermaid diagrams designed for modern blogs, design systems, and MDX pipelines.
 
@@ -8,7 +8,7 @@ Powered by [Pele](https://pele.run) (`obsidianmd/pele`) for lightning-fast build
 
 Traditional Mermaid.js rendering in MDX blogs requires shipping a heavy 2–3MB JavaScript runtime to the client browser, causing layout shifts (CLS) and awkward theming hooks.
 
-`@rtkelly/mermaid-toolkit` trims away that runtime overhead:
+`@rtkelly-labs/mermaid-toolkit` trims away that runtime overhead:
 - **Build-Time Static SVG** — Compiles Mermaid diagrams to raw SVG during static site generation with zero client-side JavaScript.
 - **Design System Native** — Styled with native CSS custom properties (`--pele-*`). Diagrams react instantly to dark mode and match your theme tokens without re-rendering JS.
 - **MDX & Remark/Rehype Plugins** — Drop-in plugins for Astro, Next.js, Contentlayer, and standard MDX bundlers.
@@ -17,12 +17,22 @@ Traditional Mermaid.js rendering in MDX blogs requires shipping a heavy 2–3MB 
 
 ---
 
+## Core Goals & Design Philosophy
+
+1. **Upstream First (Pele Delegation)**: We explicitly delegate all Mermaid diagram parsing and SVG rendering to [Pele](https://pele.run) (`obsidianmd/pele`), actively relying on the Obsidian team's ongoing maintenance and performance optimizations. We deliberately avoid maintaining bespoke SVG engines or Mermaid.js wrappers.
+2. **Minimal Maintenance Surface Area**: The toolkit is kept ultra-compact (<5 kB). Rather than reinventing what standard web tools already solve, we bridge them cleanly.
+3. **Design System Native**: Theming belongs in CSS. Diagrams are styled directly through native CSS custom properties (`--pele-*`), eliminating JavaScript theme engines and runtime re-renders on dark mode switches.
+4. **Zero-Client-JS MDX Pipelines**: We prioritize build-time static HTML/SVG output via Remark and Rehype plugins for Astro, Next.js, and Contentlayer with zero Cumulative Layout Shift (CLS).
+5. **Accessible Dual-Output**: We provide plain-text and Unicode box-drawing diagram fallbacks for accessibility (`<details>`), terminal logs, and `llms.txt`.
+
+---
+
 ## Installation
 
 ```bash
-pnpm add @rtkelly/mermaid-toolkit
+pnpm add @rtkelly-labs/mermaid-toolkit
 # or
-npm install @rtkelly/mermaid-toolkit
+npm install @rtkelly-labs/mermaid-toolkit
 ```
 
 ---
@@ -32,7 +42,7 @@ npm install @rtkelly/mermaid-toolkit
 ### 1. Direct Static SVG Rendering
 
 ```typescript
-import { renderSvg } from "@rtkelly/mermaid-toolkit";
+import { renderSvg } from "@rtkelly-labs/mermaid-toolkit";
 
 const { svg, width, height } = renderSvg(`
 graph LR
@@ -50,7 +60,7 @@ Automatically transform ````mermaid ```` code fences in markdown into themeable 
 
 ```typescript
 // next.config.mjs, astro.config.mjs, or contentlayer.config.ts
-import { remarkMermaid } from "@rtkelly/mermaid-toolkit";
+import { remarkMermaid } from "@rtkelly-labs/mermaid-toolkit";
 
 export default {
   // ...
@@ -58,7 +68,7 @@ export default {
     [
       remarkMermaid,
       {
-        strategy: "both", // 'svg' | 'ascii' | 'both'
+        strategy: "both", // 'both' | 'svg' | 'ascii'
         className: "mermaid-diagram",
         fallbackSummary: "Text diagram",
       },
@@ -70,7 +80,7 @@ export default {
 ### 3. ASCII / Unicode Text Rendering
 
 ```typescript
-import { mermaidToAscii } from "@rtkelly/mermaid-toolkit";
+import { mermaidToAscii } from "@rtkelly-labs/mermaid-toolkit";
 
 const ascii = mermaidToAscii(`
 graph LR

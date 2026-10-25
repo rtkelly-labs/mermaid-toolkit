@@ -2,7 +2,7 @@ name: Release
 
 # Manual, human-gated publish to npm. Trigger from the Actions tab
 # ("Run workflow"). Requires an `NPM_TOKEN` repo secret (an npm automation
-# token with publish rights to the @rtkelly scope).
+# token with publish rights to the @rtkelly-labs scope).
 #
 # `id-token: write` + publishConfig.provenance enable npm provenance, so the
 # published package is cryptographically linked to this workflow run.
