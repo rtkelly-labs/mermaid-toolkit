@@ -139,6 +139,51 @@ describe('remarkMermaid (MDX remark plugin)', () => {
 
     expect(ast.children?.[0]?.type).toBe('code');
   });
+
+  it('replaces code block with error message when onError="error"', () => {
+    const ast: MdastNode = {
+      type: 'root',
+      children: [
+        {
+          type: 'code',
+          lang: 'mermaid',
+          value: 'not a diagram',
+        },
+      ],
+    };
+
+    const plugin = remarkMermaid({ onError: 'error' });
+    plugin(ast);
+
+    const first = ast.children?.[0];
+    expect(first?.type).toBe('html');
+    expect(first?.value).toContain('mermaid-error');
+    expect(first?.value).toContain('Failed to render diagram');
+  });
+
+  it('escapes className to prevent HTML attribute breakout', () => {
+    const ast: MdastNode = {
+      type: 'root',
+      children: [
+        {
+          type: 'code',
+          lang: 'mermaid',
+          value: 'graph LR\n  A --> B',
+        },
+      ],
+    };
+
+    const plugin = remarkMermaid({
+      strategy: 'svg',
+      className: 'injected" onclick="alert(1)',
+    });
+    plugin(ast);
+
+    const first = ast.children?.[0];
+    expect(first?.type).toBe('html');
+    expect(first?.value).toContain('&quot;');
+    expect(first?.value).not.toContain('onclick="alert(1)"');
+  });
 });
 
 describe('rehypeMermaid (HTML / MDX rehype plugin)', () => {
