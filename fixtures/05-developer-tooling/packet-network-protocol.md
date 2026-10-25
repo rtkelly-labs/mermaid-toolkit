@@ -1,0 +1,16 @@
+# Packet Protocol Format
+
+```mermaid
+packet-beta
+0-15: "Source Port"
+16-31: "Destination Port"
+32-63: "Sequence Number"
+64-95: "Acknowledgment Number"
+96-99: "Data Offset"
+100-105: "Reserved"
+106-111: "Flags"
+112-127: "Window Size"
+128-143: "Checksum"
+144-159: "Urgent Pointer"
+160-191: "Payload"
+```

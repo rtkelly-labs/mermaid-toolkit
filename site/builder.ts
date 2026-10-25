@@ -32,6 +32,7 @@ const NAV_LINKS = [
   { href: 'accessibility.html', title: 'Accessibility' },
   { href: 'ascii-terminal.html', title: 'Terminal / ASCII' },
   { href: 'error-handling.html', title: 'Error Fallback' },
+  { href: 'fixtures.html', title: 'Fixtures Gallery' },
 ];
 
 function renderNav(activeHref: string): string {
