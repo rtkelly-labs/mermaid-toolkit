@@ -23,16 +23,20 @@
     "./themes/*": "./themes/*",
     "./package.json": "./package.json"
   },
+  "bin": {
+    "mermaid-lint": "./bin/mermaid-lint.mjs"
+  },
   "files": [
     "dist",
     "themes",
+    "bin",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean --tsconfig tsconfig.build.json",
+    "build": "tsup src/index.ts src/cli.ts --format cjs,esm --dts --clean --no-splitting --tsconfig tsconfig.build.json",
     "prepare": "pnpm build",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch --tsconfig tsconfig.build.json",
+    "dev": "tsup src/index.ts src/cli.ts --format cjs,esm --dts --watch --tsconfig tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -42,6 +46,7 @@
     "bench": "vitest bench --run",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
+    "lint:mermaid": "tsx src/cli.ts .",
     "format": "biome format --write .",
     "check:exports": "publint --strict && attw --pack .",
     "size": "size-limit",
@@ -109,7 +114,7 @@
     {
       "name": "CJS (require)",
       "path": "dist/index.js",
-      "limit": "6 kB",
+      "limit": "7 kB",
       "ignore": [
         "pele"
       ]

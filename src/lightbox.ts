@@ -1,3 +1,5 @@
+import { escapeHtml } from './constants';
+
 export interface LightboxOptions {
   /**
    * Whether to wrap diagrams with a zero-JS lightbox modal.
@@ -40,7 +42,7 @@ export interface LightboxOptions {
 }
 
 const EXPAND_ICON_SVG =
-  '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>';
+  '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
 
 function hashString(str: string): string {
   let hash = 5381;
@@ -48,15 +50,6 @@ function hashString(str: string): string {
     hash = ((hash << 5) + hash + str.charCodeAt(i)) | 0;
   }
   return Math.abs(hash).toString(36);
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
 }
 
 /**
@@ -85,28 +78,20 @@ export function renderLightbox(
     options.closeLabel ?? 'Close fullscreen diagram',
   );
 
-  let triggerTag = '';
-  let closeTag = '';
-  let backdropTag = '';
-  let popoverAttr = '';
+  const isPopover = mode === 'popover' || mode === 'auto';
+  const isTarget = mode === 'target' || mode === 'auto';
+  const popoverAttr = isPopover ? ' popover="auto"' : '';
+  const backdropTag = isTarget
+    ? '<a href="#_" class="pele-lightbox-backdrop" aria-hidden="true" tabindex="-1"></a>\n  '
+    : '';
 
-  if (mode === 'popover') {
-    popoverAttr = ' popover="auto"';
-    triggerTag = `<button type="button" class="pele-lightbox-trigger" popovertarget="${id}" aria-label="${triggerLabel}" title="${triggerLabel}"><span class="pele-lightbox-icon" aria-hidden="true">${EXPAND_ICON_SVG}</span></button>`;
-    closeTag = `<button type="button" class="pele-lightbox-close" popovertarget="${id}" popovertargetaction="hide" aria-label="${closeLabel}" title="${closeLabel}"><span aria-hidden="true">&times;</span></button>`;
-  } else if (mode === 'target') {
-    triggerTag = `<a href="#${id}" class="pele-lightbox-trigger" aria-label="${triggerLabel}" title="${triggerLabel}"><span class="pele-lightbox-icon" aria-hidden="true">${EXPAND_ICON_SVG}</span></a>`;
-    closeTag = `<a href="#_" class="pele-lightbox-close" aria-label="${closeLabel}" title="${closeLabel}"><span aria-hidden="true">&times;</span></a>`;
-    backdropTag =
-      '<a href="#_" class="pele-lightbox-backdrop" aria-hidden="true" tabindex="-1"></a>\n  ';
-  } else {
-    // auto / hybrid
-    popoverAttr = ' popover="auto"';
-    triggerTag = `<a href="#${id}" class="pele-lightbox-trigger" popovertarget="${id}" aria-label="${triggerLabel}" title="${triggerLabel}"><span class="pele-lightbox-icon" aria-hidden="true">${EXPAND_ICON_SVG}</span></a>`;
-    closeTag = `<a href="#_" class="pele-lightbox-close" popovertarget="${id}" popovertargetaction="hide" aria-label="${closeLabel}" title="${closeLabel}"><span aria-hidden="true">&times;</span></a>`;
-    backdropTag =
-      '<a href="#_" class="pele-lightbox-backdrop" aria-hidden="true" tabindex="-1"></a>\n  ';
-  }
+  const triggerTag = isTarget
+    ? `<a href="#${id}" class="pele-lightbox-trigger"${isPopover ? ` popovertarget="${id}"` : ''} aria-label="${triggerLabel}" title="${triggerLabel}"><span class="pele-lightbox-icon" aria-hidden="true">${EXPAND_ICON_SVG}</span></a>`
+    : `<button type="button" class="pele-lightbox-trigger" popovertarget="${id}" aria-label="${triggerLabel}" title="${triggerLabel}"><span class="pele-lightbox-icon" aria-hidden="true">${EXPAND_ICON_SVG}</span></button>`;
+
+  const closeTag = isTarget
+    ? `<a href="#_" class="pele-lightbox-close"${isPopover ? ` popovertarget="${id}" popovertargetaction="hide"` : ''} aria-label="${closeLabel}" title="${closeLabel}"><span aria-hidden="true">&times;</span></a>`
+    : `<button type="button" class="pele-lightbox-close" popovertarget="${id}" popovertargetaction="hide" aria-label="${closeLabel}" title="${closeLabel}"><span aria-hidden="true">&times;</span></button>`;
 
   const wrapperHtml = `<div class="pele-svg-wrapper">
   ${svg}
