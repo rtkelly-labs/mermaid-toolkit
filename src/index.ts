@@ -4,6 +4,12 @@ import { FlowchartRenderer } from './renderers/flowchart';
 import type { AsciiOptions, RenderResult } from './types';
 
 export { render as renderPele } from 'pele';
+// Semantic Accessibility (ARIA) Synthesis
+export type { A11yOptions } from './a11y';
+export {
+  enhanceSvgA11y,
+  synthesizeDiagramDescription,
+} from './a11y';
 // Zero-JS Lightbox
 export type { LightboxOptions } from './lightbox';
 export { renderLightbox } from './lightbox';

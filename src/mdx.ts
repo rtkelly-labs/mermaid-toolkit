@@ -1,9 +1,11 @@
+import { type A11yOptions, enhanceSvgA11y } from './a11y';
 import { escapeHtml } from './constants';
 import { mermaidToAscii } from './index';
 import { type LightboxOptions, renderLightbox } from './lightbox';
 import { enhanceSvgLinks, type LinkOptions } from './links';
 import { renderSvg } from './svg';
 
+export type { A11yOptions } from './a11y';
 export type { LightboxOptions } from './lightbox';
 export type { LinkOptions } from './links';
 
@@ -56,6 +58,13 @@ export interface RemarkMermaidOptions {
    * Configures external targets, rel attributes, and router link attributes.
    */
   links?: LinkOptions;
+
+  /**
+   * Automated semantic accessibility (ARIA) configuration.
+   * Synthesizes WCAG 2.1 AA compliant <title>, <desc>, aria-labelledby, and aria-describedby.
+   * @default true
+   */
+  a11y?: boolean | A11yOptions;
 }
 
 export interface RehypeMermaidOptions {
@@ -92,6 +101,13 @@ export interface RehypeMermaidOptions {
    * Configures external targets, rel attributes, and router link attributes.
    */
   links?: LinkOptions;
+
+  /**
+   * Automated semantic accessibility (ARIA) configuration.
+   * Synthesizes WCAG 2.1 AA compliant <title>, <desc>, aria-labelledby, and aria-describedby.
+   * @default true
+   */
+  a11y?: boolean | A11yOptions;
 }
 
 export interface MdastNode {
@@ -119,10 +135,17 @@ export function generateDiagramHtml(
       'strategy' | 'className' | 'fallbackSummary' | 'onError'
     >
   > &
-    Pick<RemarkMermaidOptions, 'lightbox' | 'links'>,
+    Pick<RemarkMermaidOptions, 'lightbox' | 'links' | 'a11y'>,
 ): { html: string; success: boolean } {
-  const { strategy, className, fallbackSummary, onError, lightbox, links } =
-    options;
+  const {
+    strategy,
+    className,
+    fallbackSummary,
+    onError,
+    lightbox,
+    links,
+    a11y,
+  } = options;
   const safeClassName = escapeHtml(className);
 
   if (strategy === 'ascii') {
@@ -153,6 +176,10 @@ export function generateDiagramHtml(
   }
 
   let svg = svgResult.svg;
+  if (a11y !== false) {
+    const a11yConfig = typeof a11y === 'object' && a11y !== null ? a11y : {};
+    svg = enhanceSvgA11y(svg, code, a11yConfig);
+  }
   if (links) {
     svg = enhanceSvgLinks(svg, links);
   }
@@ -219,6 +246,7 @@ export function remarkMermaid(userOptions: RemarkMermaidOptions = {}) {
     onError: userOptions.onError ?? 'code',
     lightbox: userOptions.lightbox,
     links: userOptions.links,
+    a11y: userOptions.a11y,
   };
 
   const allowedLangs = new Set(options.languages.map((l) => l.toLowerCase()));
@@ -269,6 +297,7 @@ export function rehypeMermaid(userOptions: RehypeMermaidOptions = {}) {
     onError: 'code' as const,
     lightbox: userOptions.lightbox,
     links: userOptions.links,
+    a11y: userOptions.a11y,
   };
 
   return (tree: HastNode) => {

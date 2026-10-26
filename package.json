@@ -118,7 +118,7 @@
     {
       "name": "ESM (import)",
       "path": "dist/index.mjs",
-      "limit": "6 kB",
+      "limit": "7 kB",
       "ignore": [
         "pele"
       ]
@@ -126,7 +126,7 @@
     {
       "name": "CJS (require)",
       "path": "dist/index.js",
-      "limit": "7 kB",
+      "limit": "7.5 kB",
       "ignore": [
         "pele"
       ]

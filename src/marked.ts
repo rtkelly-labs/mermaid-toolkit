@@ -20,6 +20,7 @@ export function markedMermaid(options: MarkedMermaidOptions = {}) {
     onError: options.onError ?? 'code',
     lightbox: options.lightbox,
     links: options.links,
+    a11y: options.a11y,
   };
 
   const languages = options.languages ?? ['mermaid', 'pele'];
