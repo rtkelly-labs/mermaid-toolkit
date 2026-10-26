@@ -4,6 +4,20 @@ import { FlowchartRenderer } from './renderers/flowchart';
 import type { AsciiOptions, RenderResult } from './types';
 
 export { render as renderPele } from 'pele';
+// LLMs.txt & Agentic Documentation Pipeline
+export type {
+  LlmsDocFile,
+  LlmsIndexSection,
+  LlmsLinkItem,
+  LlmsManifestOptions,
+  TransformLlmsOptions,
+} from './llms';
+export {
+  generateLlmsFullTxt,
+  generateLlmsIndex,
+  remarkLlms,
+  transformMarkdownForLlms,
+} from './llms';
 // Marked Extension
 export type { MarkedCodeToken, MarkedMermaidOptions } from './marked';
 export { markedMermaid } from './marked';
