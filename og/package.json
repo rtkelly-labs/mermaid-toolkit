@@ -1,0 +1,5 @@
+{
+  "main": "../dist/og.js",
+  "module": "../dist/og.mjs",
+  "types": "../dist/og.d.ts"
+}
