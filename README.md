@@ -218,6 +218,38 @@ interface AsciiOptions {
 
 ---
 
+## Command Line Interface (CLI)
+
+The toolkit ships two CLI binaries: `mermaid-toolkit` (universal suite) and `mermaid-lint` (dedicated linter).
+
+### `mermaid-toolkit`
+
+```bash
+# Render a diagram to terminal ASCII or static SVG
+pnpm exec mermaid-toolkit render architecture.mmd
+cat diagram.mmd | pnpm exec mermaid-toolkit render - --format svg
+
+# Lint markdown and MDX files for invalid diagrams
+pnpm exec mermaid-toolkit lint docs/ README.md
+
+# Generate llms.txt or llms-full.txt with ASCII diagrams
+pnpm exec mermaid-toolkit llms-txt ./docs --out ./public/llms.txt
+pnpm exec mermaid-toolkit llms-txt ./docs --out ./public/llms-full.txt --full
+
+# Output theme CSS tokens for styling
+pnpm exec mermaid-toolkit theme retro-brutalist
+```
+
+### `mermaid-lint`
+
+```bash
+# Fast static build-time validation in CI
+pnpm exec mermaid-lint
+pnpm exec mermaid-lint docs/ --format json
+```
+
+---
+
 ## License
 
 MIT © Ryan Kelly
