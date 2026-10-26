@@ -4,6 +4,12 @@ import { FlowchartRenderer } from './renderers/flowchart';
 import type { AsciiOptions, RenderResult } from './types';
 
 export { render as renderPele } from 'pele';
+// Zero-JS Lightbox
+export type { LightboxOptions } from './lightbox';
+export { renderLightbox } from './lightbox';
+// Native Router Links
+export type { LinkOptions } from './links';
+export { enhanceSvgLinks } from './links';
 // LLMs.txt & Agentic Documentation Pipeline
 export type {
   LlmsDocFile,
