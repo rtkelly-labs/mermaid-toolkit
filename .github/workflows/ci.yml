@@ -123,19 +123,43 @@ jobs:
           node cjs.cjs
 
   bench:
-    name: Benchmarks (smoke)
+    name: Benchmarks & PR performance check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
       - uses: actions/setup-node@1d0ff469b7ec7b3cb9d8673fde0c81c44821de2a # v4.2.0
         with:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      # Runs the benchmark suite once so a perf-path regression that throws is
-      # caught in CI. Numbers are informational (not asserted) — see the run log.
-      - run: pnpm bench
+
+      - name: Run benchmarks (current)
+        run: |
+          mkdir -p temp
+          pnpm exec vitest bench --run --outputJson temp/current-bench.json
+
+      - name: Run baseline benchmarks (main)
+        if: github.event_name == 'pull_request'
+        run: |
+          git checkout origin/main
+          pnpm install --frozen-lockfile
+          pnpm exec vitest bench --run --outputJson temp/base-bench.json
+          git checkout -
+
+      - name: Compare performance against baseline
+        if: github.event_name == 'pull_request'
+        run: |
+          pnpm exec tsx scripts/bench-compare.ts temp/base-bench.json temp/current-bench.json --out=temp/bench-summary.md
+
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        with:
+          name: benchmark-results
+          path: temp/*bench*.json
+          if-no-files-found: ignore
 
   # Single required status check to gate merges on. Branch protection requires
   # just "PR checks" instead of every matrix leg, so adding/removing a Node
