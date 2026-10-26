@@ -60,7 +60,7 @@ jobs:
 
       - name: Upload coverage report
         if: matrix.node == 22
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: coverage
           path: coverage/
@@ -155,7 +155,7 @@ jobs:
           pnpm exec tsx scripts/bench-compare.ts temp/base-bench.json temp/current-bench.json --out=temp/bench-summary.md
 
       - name: Upload benchmark results
-        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: benchmark-results
           path: temp/*bench*.json
