@@ -1,0 +1,90 @@
+/* Zero-Runtime Visual Diagram Diffing Overlays for Mermaid Toolkit */
+
+:root {
+  --pele-diff-added: #10b981;
+  --pele-diff-added-bg: rgba(16, 185, 129, 0.12);
+  --pele-diff-removed: #ef4444;
+  --pele-diff-removed-bg: rgba(239, 68, 68, 0.12);
+  --pele-diff-modified: #f59e0b;
+  --pele-diff-modified-bg: rgba(245, 158, 11, 0.14);
+}
+
+:root[data-theme="dark"],
+.dark,
+[data-theme="dark"] .pele,
+.dark .pele {
+  --pele-diff-added: #34d399;
+  --pele-diff-added-bg: rgba(52, 211, 153, 0.18);
+  --pele-diff-removed: #f87171;
+  --pele-diff-removed-bg: rgba(248, 113, 113, 0.18);
+  --pele-diff-modified: #fbbf24;
+  --pele-diff-modified-bg: rgba(251, 191, 36, 0.2);
+}
+
+/* Added Elements */
+svg.pele .pele-node.pele-diff-added rect,
+svg.pele .pele-node.pele-diff-added polygon,
+svg.pele .pele-node.pele-diff-added path,
+svg.pele .pele-node.pele-diff-added circle {
+  stroke: var(--pele-diff-added);
+  stroke-width: 2.5px;
+  fill: var(--pele-diff-added-bg);
+}
+
+svg.pele .pele-edge.pele-diff-added path {
+  stroke: var(--pele-diff-added);
+  stroke-width: 2.5px;
+}
+
+svg.pele .pele-edge.pele-diff-added .pele-marker {
+  fill: var(--pele-diff-added);
+  stroke: none;
+}
+
+/* Removed Elements */
+svg.pele .pele-node.pele-diff-removed rect,
+svg.pele .pele-node.pele-diff-removed polygon,
+svg.pele .pele-node.pele-diff-removed path,
+svg.pele .pele-node.pele-diff-removed circle {
+  stroke: var(--pele-diff-removed);
+  stroke-width: 2px;
+  stroke-dasharray: 4, 4;
+  fill: var(--pele-diff-removed-bg);
+  opacity: 0.7;
+}
+
+svg.pele .pele-node.pele-diff-removed text {
+  fill: var(--pele-diff-removed);
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+svg.pele .pele-edge.pele-diff-removed path {
+  stroke: var(--pele-diff-removed);
+  stroke-dasharray: 4, 4;
+  opacity: 0.65;
+}
+
+svg.pele .pele-edge.pele-diff-removed .pele-marker {
+  fill: var(--pele-diff-removed);
+  opacity: 0.65;
+}
+
+/* Modified Elements */
+svg.pele .pele-node.pele-diff-modified rect,
+svg.pele .pele-node.pele-diff-modified polygon,
+svg.pele .pele-node.pele-diff-modified path,
+svg.pele .pele-node.pele-diff-modified circle {
+  stroke: var(--pele-diff-modified);
+  stroke-width: 2.5px;
+  fill: var(--pele-diff-modified-bg);
+}
+
+svg.pele .pele-edge.pele-diff-modified path {
+  stroke: var(--pele-diff-modified);
+  stroke-width: 2.5px;
+}
+
+svg.pele .pele-edge.pele-diff-modified .pele-marker {
+  fill: var(--pele-diff-modified);
+}

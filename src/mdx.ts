@@ -1,11 +1,13 @@
 import { type A11yOptions, enhanceSvgA11y } from './a11y';
 import { escapeHtml } from './constants';
+import { applyDiffClasses, type DiagramDiffState } from './diff';
 import { mermaidToAscii } from './index';
 import { type LightboxOptions, renderLightbox } from './lightbox';
 import { enhanceSvgLinks, type LinkOptions } from './links';
 import { renderSvg } from './svg';
 
 export type { A11yOptions } from './a11y';
+export type { DiagramDiffState } from './diff';
 export type { LightboxOptions } from './lightbox';
 export type { LinkOptions } from './links';
 
@@ -65,6 +67,12 @@ export interface RemarkMermaidOptions {
    * @default true
    */
   a11y?: boolean | A11yOptions;
+
+  /**
+   * Visual diagram diffing state.
+   * Applies .pele-diff-added, .pele-diff-removed, and .pele-diff-modified CSS classes.
+   */
+  diff?: DiagramDiffState;
 }
 
 export interface RehypeMermaidOptions {
@@ -108,6 +116,12 @@ export interface RehypeMermaidOptions {
    * @default true
    */
   a11y?: boolean | A11yOptions;
+
+  /**
+   * Visual diagram diffing state.
+   * Applies .pele-diff-added, .pele-diff-removed, and .pele-diff-modified CSS classes.
+   */
+  diff?: DiagramDiffState;
 }
 
 export interface MdastNode {
@@ -135,7 +149,7 @@ export function generateDiagramHtml(
       'strategy' | 'className' | 'fallbackSummary' | 'onError'
     >
   > &
-    Pick<RemarkMermaidOptions, 'lightbox' | 'links' | 'a11y'>,
+    Pick<RemarkMermaidOptions, 'lightbox' | 'links' | 'a11y' | 'diff'>,
 ): { html: string; success: boolean } {
   const {
     strategy,
@@ -145,6 +159,7 @@ export function generateDiagramHtml(
     lightbox,
     links,
     a11y,
+    diff,
   } = options;
   const safeClassName = escapeHtml(className);
 
@@ -176,6 +191,9 @@ export function generateDiagramHtml(
   }
 
   let svg = svgResult.svg;
+  if (diff) {
+    svg = applyDiffClasses(svg, diff);
+  }
   if (a11y !== false) {
     const a11yConfig = typeof a11y === 'object' && a11y !== null ? a11y : {};
     svg = enhanceSvgA11y(svg, code, a11yConfig);
@@ -247,6 +265,7 @@ export function remarkMermaid(userOptions: RemarkMermaidOptions = {}) {
     lightbox: userOptions.lightbox,
     links: userOptions.links,
     a11y: userOptions.a11y,
+    diff: userOptions.diff,
   };
 
   const allowedLangs = new Set(options.languages.map((l) => l.toLowerCase()));
@@ -298,6 +317,7 @@ export function rehypeMermaid(userOptions: RehypeMermaidOptions = {}) {
     lightbox: userOptions.lightbox,
     links: userOptions.links,
     a11y: userOptions.a11y,
+    diff: userOptions.diff,
   };
 
   return (tree: HastNode) => {
