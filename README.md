@@ -25,6 +25,8 @@ Traditional Mermaid.js rendering in MDX blogs requires shipping a heavy 2–3MB 
 4. **Zero-Client-JS MDX Pipelines**: We prioritize build-time static HTML/SVG output via Remark and Rehype plugins for Astro, Next.js, and Contentlayer with zero Cumulative Layout Shift (CLS).
 5. **Accessible Dual-Output**: We provide plain-text and Unicode box-drawing diagram fallbacks for accessibility (`<details>`), terminal logs, and `llms.txt`.
 
+*For the backstory of how this project pivoted away from scheduled deletion into its zero-runtime architecture, see [PROJECT-HISTORY.md](docs/PROJECT-HISTORY.md).*
+
 ---
 
 ## Installation
