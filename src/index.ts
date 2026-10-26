@@ -10,6 +10,13 @@ export {
   enhanceSvgA11y,
   synthesizeDiagramDescription,
 } from './a11y';
+// Visual Diagram Diffing & Changelog Overlays
+export type { DiagramDiffResult, DiagramDiffState } from './diff';
+export {
+  applyDiffClasses,
+  diffDiagrams,
+  renderDiffDiagram,
+} from './diff';
 // Zero-JS Lightbox
 export type { LightboxOptions } from './lightbox';
 export { renderLightbox } from './lightbox';

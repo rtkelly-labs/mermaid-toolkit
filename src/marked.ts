@@ -21,6 +21,7 @@ export function markedMermaid(options: MarkedMermaidOptions = {}) {
     lightbox: options.lightbox,
     links: options.links,
     a11y: options.a11y,
+    diff: options.diff,
   };
 
   const languages = options.languages ?? ['mermaid', 'pele'];
