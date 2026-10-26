@@ -34,6 +34,7 @@
     "./package.json": "./package.json"
   },
   "bin": {
+    "mermaid-toolkit": "./bin/mermaid-toolkit.mjs",
     "mermaid-lint": "./bin/mermaid-lint.mjs"
   },
   "files": [
