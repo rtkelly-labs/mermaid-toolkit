@@ -13,16 +13,13 @@ export interface MarkedCodeToken {
  * Works seamlessly with marked.parse() at build time or during SSR.
  */
 export function markedMermaid(options: MarkedMermaidOptions = {}) {
-  const mergedOptions: Required<
-    Pick<
-      MarkedMermaidOptions,
-      'strategy' | 'className' | 'fallbackSummary' | 'onError'
-    >
-  > = {
+  const mergedOptions = {
     strategy: options.strategy ?? 'both',
     className: options.className ?? 'mermaid-diagram',
     fallbackSummary: options.fallbackSummary ?? 'Text diagram',
     onError: options.onError ?? 'code',
+    lightbox: options.lightbox,
+    links: options.links,
   };
 
   const languages = options.languages ?? ['mermaid', 'pele'];

@@ -1,0 +1,168 @@
+/* Pure CSS / HTML5 Zero-JS Lightbox for Mermaid Toolkit */
+
+.pele-has-lightbox {
+  position: relative;
+}
+
+.pele-lightbox-toolbar {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.25rem;
+  z-index: 10;
+  opacity: 0.7;
+  transition: opacity 0.15s ease-in-out;
+}
+
+.pele-container:hover .pele-lightbox-toolbar,
+.pele-lightbox-toolbar:focus-within {
+  opacity: 1;
+}
+
+.pele-lightbox-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  background: var(--pele-surface, #ffffff);
+  color: var(--pele-fg, #1f1f1f);
+  border: 1px solid var(--pele-border, #d1d5db);
+  border-radius: var(--pele-radius, 4px);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition:
+    background-color 0.15s,
+    border-color 0.15s,
+    transform 0.1s;
+}
+
+.pele-lightbox-trigger:hover {
+  background: var(--pele-surface-alt, #f3f4f6);
+  border-color: var(--pele-accent, #5b7bd5);
+  transform: scale(1.05);
+}
+
+.pele-lightbox-trigger:focus-visible {
+  outline: 2px solid var(--pele-accent, #5b7bd5);
+  outline-offset: 2px;
+}
+
+/* Lightbox Modal: Native Popover and CSS :target */
+.pele-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  border: none;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+/* Open states for Popover API and CSS :target */
+.pele-lightbox:popover-open,
+.pele-lightbox:target {
+  display: flex;
+}
+
+/* Popover native backdrop */
+.pele-lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+}
+
+/* Clickable backdrop for CSS :target fallback */
+.pele-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: transparent;
+  cursor: zoom-out;
+}
+
+/* Dialog Container */
+.pele-lightbox-dialog {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  max-width: 95vw;
+  max-height: 90vh;
+  background: var(--pele-bg, #ffffff);
+  color: var(--pele-fg, #1f1f1f);
+  border: 1px solid var(--pele-border, #e5e7eb);
+  border-radius: calc(var(--pele-radius, 4px) * 2);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.pele-lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--pele-border, #e5e7eb);
+  background: var(--pele-surface, #f9fafb);
+  gap: 1rem;
+}
+
+.pele-lightbox-title {
+  font-family: var(--pele-font, sans-serif);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pele-muted, #4b5563);
+}
+
+.pele-lightbox-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  background: transparent;
+  color: var(--pele-fg, #1f1f1f);
+  border: 1px solid transparent;
+  border-radius: var(--pele-radius, 4px);
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.pele-lightbox-close:hover {
+  background: var(--pele-surface-alt, #e5e7eb);
+}
+
+.pele-lightbox-close:focus-visible {
+  outline: 2px solid var(--pele-accent, #5b7bd5);
+  outline-offset: 2px;
+}
+
+.pele-lightbox-body {
+  padding: 1.5rem;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pele-lightbox-body svg {
+  max-width: 100%;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+}

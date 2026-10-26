@@ -1,5 +1,10 @@
 import { mermaidToAscii } from './index';
+import { type LightboxOptions, renderLightbox } from './lightbox';
+import { enhanceSvgLinks, type LinkOptions } from './links';
 import { renderSvg } from './svg';
+
+export type { LightboxOptions } from './lightbox';
+export type { LinkOptions } from './links';
 
 export interface RemarkMermaidOptions {
   /**
@@ -37,6 +42,19 @@ export interface RemarkMermaidOptions {
    * @default 'code'
    */
   onError?: 'code' | 'ascii' | 'error';
+
+  /**
+   * Zero-JS lightbox modal configuration.
+   * If true or configured with options, wraps SVGs with pure CSS / HTML5 Popover modal.
+   * @default false
+   */
+  lightbox?: boolean | LightboxOptions;
+
+  /**
+   * Link configuration for diagram nodes (`click` / URL elements).
+   * Configures external targets, rel attributes, and router link attributes.
+   */
+  links?: LinkOptions;
 }
 
 export interface RehypeMermaidOptions {
@@ -60,6 +78,19 @@ export interface RehypeMermaidOptions {
    * @default 'Text diagram'
    */
   fallbackSummary?: string;
+
+  /**
+   * Zero-JS lightbox modal configuration.
+   * If true or configured with options, wraps SVGs with pure CSS / HTML5 Popover modal.
+   * @default false
+   */
+  lightbox?: boolean | LightboxOptions;
+
+  /**
+   * Link configuration for diagram nodes (`click` / URL elements).
+   * Configures external targets, rel attributes, and router link attributes.
+   */
+  links?: LinkOptions;
 }
 
 export interface MdastNode {
@@ -95,9 +126,11 @@ export function generateDiagramHtml(
       RemarkMermaidOptions,
       'strategy' | 'className' | 'fallbackSummary' | 'onError'
     >
-  >,
+  > &
+    Pick<RemarkMermaidOptions, 'lightbox' | 'links'>,
 ): { html: string; success: boolean } {
-  const { strategy, className, fallbackSummary, onError } = options;
+  const { strategy, className, fallbackSummary, onError, lightbox, links } =
+    options;
   const safeClassName = escapeHtml(className);
 
   if (strategy === 'ascii') {
@@ -127,17 +160,51 @@ export function generateDiagramHtml(
     return { html: '', success: false };
   }
 
+  let svg = svgResult.svg;
+  if (links) {
+    svg = enhanceSvgLinks(svg, links);
+  }
+
+  const hasLightbox = Boolean(
+    lightbox === true ||
+      (typeof lightbox === 'object' &&
+        lightbox !== null &&
+        lightbox.enabled !== false),
+  );
+
+  const lightboxConfig =
+    typeof lightbox === 'object' && lightbox !== null ? lightbox : {};
+
   if (strategy === 'svg') {
+    if (hasLightbox) {
+      const { wrapperHtml } = renderLightbox(svg, lightboxConfig, code);
+      return {
+        html: `<div class="${safeClassName} pele-container pele-has-lightbox">${wrapperHtml}</div>`,
+        success: true,
+      };
+    }
     return {
-      html: `<div class="${safeClassName} pele-container">${svgResult.svg}</div>`,
+      html: `<div class="${safeClassName} pele-container">${svg}</div>`,
       success: true,
     };
   }
 
   // strategy === 'both'
   const ascii = mermaidToAscii(code);
+  if (hasLightbox) {
+    const { wrapperHtml } = renderLightbox(svg, lightboxConfig, code);
+    const html = `<figure class="${safeClassName} pele-container pele-has-lightbox">
+  ${wrapperHtml}
+  <details class="pele-ascii-fallback">
+    <summary>${escapeHtml(fallbackSummary)}</summary>
+    <pre><code>${escapeHtml(ascii)}</code></pre>
+  </details>
+</figure>`;
+    return { html, success: true };
+  }
+
   const html = `<figure class="${safeClassName} pele-container">
-  <div class="pele-svg-wrapper">${svgResult.svg}</div>
+  <div class="pele-svg-wrapper">${svg}</div>
   <details class="pele-ascii-fallback">
     <summary>${escapeHtml(fallbackSummary)}</summary>
     <pre><code>${escapeHtml(ascii)}</code></pre>
@@ -152,12 +219,14 @@ export function generateDiagramHtml(
  * Compiles ```mermaid code blocks into static themeable SVGs (via Pele) and/or ASCII fallbacks.
  */
 export function remarkMermaid(userOptions: RemarkMermaidOptions = {}) {
-  const options: Required<RemarkMermaidOptions> = {
+  const options = {
     strategy: userOptions.strategy ?? 'both',
     className: userOptions.className ?? 'mermaid-diagram',
     fallbackSummary: userOptions.fallbackSummary ?? 'Text diagram',
     languages: userOptions.languages ?? ['mermaid', 'pele'],
     onError: userOptions.onError ?? 'code',
+    lightbox: userOptions.lightbox,
+    links: userOptions.links,
   };
 
   const allowedLangs = new Set(options.languages.map((l) => l.toLowerCase()));
@@ -200,12 +269,14 @@ export function remarkMermaid(userOptions: RemarkMermaidOptions = {}) {
  * Intercepts <pre><code class="language-mermaid"> elements and transforms them into SVGs.
  */
 export function rehypeMermaid(userOptions: RehypeMermaidOptions = {}) {
-  const options: Required<RemarkMermaidOptions> = {
+  const options = {
     strategy: userOptions.strategy ?? 'both',
     className: userOptions.className ?? 'mermaid-diagram',
     fallbackSummary: userOptions.fallbackSummary ?? 'Text diagram',
     languages: ['mermaid', 'pele'],
-    onError: 'code',
+    onError: 'code' as const,
+    lightbox: userOptions.lightbox,
+    links: userOptions.links,
   };
 
   return (tree: HastNode) => {
