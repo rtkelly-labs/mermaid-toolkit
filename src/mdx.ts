@@ -1,3 +1,4 @@
+import { escapeHtml } from './constants';
 import { mermaidToAscii } from './index';
 import { type LightboxOptions, renderLightbox } from './lightbox';
 import { enhanceSvgLinks, type LinkOptions } from './links';
@@ -108,15 +109,6 @@ export interface HastNode {
   children?: HastNode[];
   value?: string;
   [key: string]: unknown;
-}
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
 }
 
 export function generateDiagramHtml(

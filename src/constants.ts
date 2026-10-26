@@ -43,3 +43,12 @@ export const DEFAULT_OPTIONS: Required<AsciiOptions> = {
 export function getBoxChars(options: AsciiOptions): BoxChars {
   return options.asciiOnly ? ASCII_CHARS : UNICODE_CHARS;
 }
+
+export function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}

@@ -10,6 +10,9 @@ export { renderLightbox } from './lightbox';
 // Native Router Links
 export type { LinkOptions } from './links';
 export { enhanceSvgLinks } from './links';
+// Diagram Linting API & CLI
+export type { LintDiagnostic, LintOptions, LintReport } from './lint';
+export { formatLintReport, lintMarkdown } from './lint';
 // LLMs.txt & Agentic Documentation Pipeline
 export type {
   LlmsDocFile,
