@@ -11,7 +11,7 @@ import {
 import { generateLlmsFullTxt, generateLlmsIndex } from './llms';
 import { renderSvg } from './svg';
 
-const VERSION = '0.1.0-alpha.0';
+const VERSION = '0.1.0-alpha.1';
 
 const DEFAULT_IGNORES = [
   'node_modules',
