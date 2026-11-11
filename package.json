@@ -109,7 +109,7 @@
     "@biomejs/biome": "^2.5.3",
     "@resvg/resvg-js": "^2.6.2",
     "@size-limit/preset-small-lib": "^12.1.0",
-    "@types/node": "^22.10.5",
+    "@types/node": "^26.6.6",
     "@vitest/coverage-v8": "4.0.17",
     "publint": "^0.3.21",
     "size-limit": "^12.1.0",
