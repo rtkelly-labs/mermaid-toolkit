@@ -10,7 +10,7 @@ importers:
     dependencies:
       pele:
         specifier: ^1.10.0
-        version: 1.10.0
+        version: 1.12.0
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: ^0.18.5
@@ -1065,8 +1065,8 @@ packages:
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
 
-  pele@1.10.0:
-    resolution: {integrity: sha512-hDMEM+GQ01pZin8tst3PRXGeB/xFATvXBreHHtjx2glSNAQ7nHFq7EbMuNJGTbqkYgueWPboLjyUBsAudsb1qQ==}
+  pele@1.12.0:
+    resolution: {integrity: sha512-3OdOK6rvkaTB569R4/I8U0H82MqPRxj7vfkbowa2rRhgSBPFhvWlfFy5eae0jP+2A6hE8abE17nsdyxJz2VBiQ==}
     engines: {node: '>=20'}
 
   picocolors@1.1.1:
@@ -2144,7 +2144,7 @@ snapshots:
 
   pathe@2.0.3: {}
 
-  pele@1.10.0: {}
+  pele@1.12.0: {}
 
   picocolors@1.1.1: {}
 
