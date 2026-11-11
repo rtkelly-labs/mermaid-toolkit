@@ -17,7 +17,7 @@ Instead, please report vulnerabilities privately using GitHub's Private Vulnerab
 1. Navigate to the [Security Advisories](https://github.com/rtkelly-labs/mermaid-toolkit/security/advisories/new) tab.
 2. Submit a report describing the vulnerability, affected versions, and steps or code to reproduce.
 
-Alternatively, contact the maintainer directly at **security@rtkelly.com**.
+Alternatively, contact the maintainer directly at <94ryan.kelly@gmail.com>.
 
 You can expect an initial response within 48 hours acknowledging receipt of your report. We will coordinate remediation and disclosure timelines before any public release.
 
